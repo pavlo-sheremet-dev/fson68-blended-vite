@@ -1,6 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
-import { routes } from '../routes';
-import PropTypes from 'prop-types';
+import { Link, useLocation } from "react-router-dom";
+import { routes } from "../routes";
+import PropTypes from "prop-types";
 
 export const CocktailCard = ({
   strDrinkThumb,
@@ -8,13 +8,14 @@ export const CocktailCard = ({
   strGlass,
   idDrink,
 }) => {
+  const location = useLocation();
   return (
-    <li className='text-center border rounded-xl overflow-hidden shadow-md border-transparent hover:border-gray-300 cursor-pointer transition-colors'>
-      <Link to={'/'}>
-        <img src='strDrinkThumb' alt='strDrink' />
-        <div className='px-2 py-4 flex flex-col gap-2'>
-          <h2 className='text-2xl font-medium'>strDrink</h2>
-          <span className='block text-sm text-gray-500'>strGlass</span>
+    <li className="text-center border rounded-xl overflow-hidden shadow-md border-transparent hover:border-gray-300 cursor-pointer transition-colors">
+      <Link to={routes.STATIC_COCKTAIL_ID(idDrink)} state={{ from: location }}>
+        <img src={strDrinkThumb} alt={strDrink} />
+        <div className="px-2 py-4 flex flex-col gap-2">
+          <h2 className="text-2xl font-medium">{strDrink}</h2>
+          <span className="block text-sm text-gray-500">{strGlass}</span>
         </div>
       </Link>
     </li>
