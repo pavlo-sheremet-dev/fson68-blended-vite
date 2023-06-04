@@ -9,8 +9,8 @@ export const Button = ({ children, counter, role = 'thumbsUp', id }) => {
     [styles.thumbsDown]: role === 'thumbsDown',
   };
 
-  const onBtnHandleClick = () => {
-    console.log('click');
+  const onBtnHandleClick = (e) => {
+    console.log("click", e);
   };
 
   return (
