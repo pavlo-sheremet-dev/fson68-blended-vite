@@ -22,7 +22,19 @@ export const commentApi = createApi({
       }),
       invalidatesTags: ["Comments"],
     }),
+    editComment: builder.mutation({
+      query: ({ id, ...body }) => ({
+        url: `${API_ENDPOINT}/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Comments"],
+    }),
   }),
 });
 
-export const { useGetCommentsQuery, useAddNewCommentMutation } = commentApi;
+export const {
+  useGetCommentsQuery,
+  useAddNewCommentMutation,
+  useEditCommentMutation,
+} = commentApi;

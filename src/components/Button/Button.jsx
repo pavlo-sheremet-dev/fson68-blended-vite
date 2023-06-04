@@ -1,22 +1,30 @@
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
-import styles from './Button.module.css';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import styles from "./Button.module.css";
+import { useEditCommentMutation } from "../../redux/commentApi";
 
-export const Button = ({ children, counter, role = 'thumbsUp', id }) => {
+export const Button = ({ children, counter, role = "thumbsUp", id }) => {
+  const [updateComment] = useEditCommentMutation();
+  const [isVote, setIsVote] = useState(false);
   const variants = {
-    [styles.thumbsUp]: role === 'thumbsUp',
-    [styles.thumbsDown]: role === 'thumbsDown',
+    [styles.thumbsUp]: role === "thumbsUp",
+    [styles.thumbsDown]: role === "thumbsDown",
   };
 
-  const onBtnHandleClick = (e) => {
-    console.log("click", e);
+  const onBtnHandleClick = async () => {
+    await updateComment({
+      id,
+      [role]: counter + (role === "thumbsUp" && !isVote ? 1 : -1),
+    }).unwrap();
+
+    setIsVote((p) => !p);
   };
 
   return (
     <button
       className={classNames(styles.button, variants)}
-      type='button'
+      type="button"
       counter={counter}
       onClick={onBtnHandleClick}
       id={id}
